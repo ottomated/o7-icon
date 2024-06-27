@@ -14,7 +14,7 @@ function toPascalCase(string: string) {
 const icons = new Glob('*.svg');
 
 const src = fileURLToPath(import.meta.resolve('../../../icons/lucide/icons'));
-const dest = import.meta.dir;
+const dest = fileURLToPath(import.meta.resolve('../../../dist/lucide'));
 
 const names: string[] = [];
 
@@ -24,29 +24,42 @@ for await (const icon of icons.scan(src)) {
 
 	const name = toPascalCase(icon.replace('.svg', ''));
 	names.push(name);
-	const component = generateComponent(id, svg);
-	await Bun.write(join(dest, name + '.svelte'), component);
+	const [js, dts] = generateComponent(id, name, svg);
+	await Bun.write(join(dest, name + '.svelte'), js);
+	await Bun.write(join(dest, name + '.svelte.d.ts'), dts);
 	id += 1;
 }
 
 const index = names
-	.map((name) => `export { default as ${name} } from './${name}.svelte';`)
+	.map((name) => `export {default as ${name}} from './${name}.svelte';`)
 	.join('\n');
-await Bun.write(join(dest, 'index.ts'), index);
+await Bun.write(join(dest, 'index.js'), index);
+await Bun.write(join(dest, 'index.d.ts'), index);
 console.log(`Generated ${id} icons`);
-function generateComponent(id: number, svg: INode) {
-	const src = svg.children.map((child) => stringify(child)).join('');
-	return `<script lang="ts">
-	import { get_style, type IconProps } from '../common.js';
-	import '../icon.css';
-	import { include_icon } from '../store.js';
-	const { size, style: style_, class: class_, ...props }: IconProps = $props();
-	const style = $derived(get_style(size, style_));
-</script>
 
-{#if include_icon(${id})}<svg class="🟃r"><g id="🟃${id}" class="🟃g">${src}</g></svg>{/if}<svg
-	class="🟃i{class_ ? ' ' + class_ : ''}"
-	viewBox="0 0 24 24"
-	{style}
-	{...props}><use href="#🟃${id}" /></svg>`;
+function generateComponent(id: number, name: string, svg: INode): [js: string, dts: string] {
+	const src = svg.children.map((child) => stringify(child)).join('');
+	svg.children.unshift({
+		name: 'rect',
+		type: 'element',
+		value: '',
+		attributes: {
+			x: '-2',
+			y: '-2',
+			width: '28',
+			height: '28',
+			fill: 'white',
+			rx: '2'
+		},
+		children: []
+	});
+	svg.attributes.viewBox = '-2 -2 28 28';
+	svg.attributes.width = '48';
+	svg.attributes.height = '48';
+	const base64 = Buffer.from(stringify(svg)).toString('base64');
+	const docs = `/** ![img](data:image/svg+xml;base64,${base64}) */`;
+	return [
+		`<script>import {get_style} from '../common.js';import '../icon.css';import {include_icon} from '../store.js';const {size,style:style_,class:class_,...props}:IconProps=$props();const style=$derived(get_style(size,style_));</script>{#if include_icon(${id})}<svg class="🟃r"><g id="🟃${id}" class="🟃g">${src}</g></svg>{/if}<svg class="🟃i{class_ ? ' ' + class_ : ''}" viewBox="0 0 24 24" {style} {...props}><use href="#🟃${id}" /></svg>`,
+		`import {IIC} from '../common.js';declare const ${name}:IIC;\n${docs}\ntype ${name}=InstanceType<typeof ${name}>;export default ${name};`
+	];
 }

@@ -1,11 +1,12 @@
 {
-	"name": "svicon",
-	"version": "0.0.1",
+	"name": "oicon",
+	"version": "0.0.2",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
 		"preview": "vite preview",
-		"package": "svelte-kit sync && svelte-package && publint",
+		"package": "svelte-kit sync && svelte-package && bun generate && publint",
+		"generate": "bun ./src/lib/lucide/_generate.ts",
 		"prepublishOnly": "npm run package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -16,12 +17,22 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js"
+		},
+		"./lucide": {
+			"types": "./dist/lucide/index.d.ts",
+			"svelte": "./dist/lucide/index.js"
+		},
+		"./lucide/*": {
+			"types": "./dist/lucide/*.svelte.d.ts",
+			"svelte": "./dist/lucide/*.svelte"
 		}
 	},
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
+		"!dist/**/*.spec.*",
+		"!dist/**/_generate.js",
+		"!dist/**/_generate.d.ts"
 	],
 	"peerDependencies": {
 		"svelte": "^5.0.0-next.1",
