@@ -59,7 +59,7 @@ function generateComponent(id: number, name: string, svg: INode): [js: string, d
 	const base64 = Buffer.from(stringify(svg)).toString('base64');
 	const docs = `/** ![img](data:image/svg+xml;base64,${base64}) */`;
 	return [
-		`<script>import {get_style} from '../common.js';import '../icon.css';import {include_icon} from '../store.js';const {size,style:style_,class:class_,...props}:IconProps=$props();const style=$derived(get_style(size,style_));</script>{#if include_icon(${id})}<svg class="🟃r"><g id="🟃${id}" class="🟃g">${src}</g></svg>{/if}<svg class="🟃i{class_ ? ' ' + class_ : ''}" viewBox="0 0 24 24" {style} {...props}><use href="#🟃${id}" /></svg>`,
+		`<script>import {get_style} from '../common.js';import '../icon.css';import {include_icon} from '../store.js';const {size,style:style_,class:class_,...props}=$props();const style=$derived(get_style(size,style_));</script>{#if include_icon(${id})}<svg class="🟃r"><g id="🟃${id}" class="🟃g">${src}</g></svg>{/if}<svg class="🟃i{class_ ? ' ' + class_ : ''}" viewBox="0 0 24 24" {style} {...props}><use href="#🟃${id}" /></svg>`,
 		`import {IIC} from '../common.js';declare const ${name}:IIC;\n${docs}\ntype ${name}=InstanceType<typeof ${name}>;export default ${name};`
 	];
 }
