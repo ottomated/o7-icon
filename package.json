@@ -1,5 +1,5 @@
 {
-	"name": "oicon",
+	"name": "@o7/icon",
 	"version": "0.0.3",
 	"scripts": {
 		"dev": "vite dev",
