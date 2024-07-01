@@ -48,5 +48,12 @@ jobs:
 
           git config --local user.email "o7-icon@users.noreply.github.com"
           git config --local user.name "o7-icon[bot]"
-          git commit -m "ci Update icons"
-          git push origin main
+          git commit -m "ci: Update icons"
+          pnpm version patch
+          git commit -m "ci: Release"
+
+      - name: Publish
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+          pnpm publish
