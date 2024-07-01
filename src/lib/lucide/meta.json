@@ -1,7 +1,10 @@
 {
 	"git": "https://github.com/lucide-icons/lucide",
 	"sources": {
-		".": ["icons", "🟃l"]
+		".": [
+			"icons",
+			"🟃l"
+		]
 	},
-	"version": "0.398.0"
+	"version": "0.399.0"
 }
