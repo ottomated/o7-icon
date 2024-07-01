@@ -4,6 +4,8 @@ import { getIconPacks } from './common.js';
 
 await $`mkdir -p ./icons`;
 
+let changes = false;
+const toDownload = [];
 for await (const { name, meta, meta_file } of getIconPacks()) {
 	console.log(name);
 	console.log(`- Current version: ${meta.version}`);
@@ -22,14 +24,20 @@ for await (const { name, meta, meta_file } of getIconPacks()) {
 
 	const latest = tags[0];
 	console.log(`- Latest version: ${latest.version}`);
+	if (meta.version !== latest.version) {
+		changes = true;
+	}
+	toDownload.push({ name, latest, meta, meta_file });
+}
 
+if (!changes) {
+	console.error('No changes');
+	process.exit(1);
+}
+
+for (const { name, latest, meta, meta_file } of toDownload) {
+	// Clone or pull repo
 	if (existsSync(`./icons/${name}`)) {
-		if (meta.version === latest.version) {
-			console.log('- Already up to date!');
-			continue;
-		}
-
-		// Clone or pull repo
 		await $`cd ./icons/${name} && git pull && git checkout ${latest.hash}`;
 	} else {
 		await $`git clone --depth=1 --branch=${latest.version} ${meta.git} ./icons/${name}`;
