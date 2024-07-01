@@ -5,14 +5,14 @@
 <h1 align="center">@o7/icon</h1>
 
 <p align="center">The most efficient Svelte icon library,</p>
-<p align="center">using <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use">SVG sprites</a> to minimize your load speed.</p>
+<p align="center">using <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use">SVG sprites</a> to minimize your load speed.</p>
 <br />
 
 ## Basic Usage
 
 ```svelte
 <script>
-	import { UserPlus } from '@o7/icon/lucide';
+  import { UserPlus } from '@o7/icon/lucide';
 </script>
 
 <UserPlus />
