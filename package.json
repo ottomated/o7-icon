@@ -6,7 +6,7 @@
 		"build": "vite build && npm run package",
 		"preview": "vite preview",
 		"package": "svelte-kit sync && svelte-package && bun generate && publint",
-		"generate": "bun ./src/lib/lucide/_generate.ts",
+		"generate": "bun ./src/lib/generate/generate.ts",
 		"prepublishOnly": "npm run package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -25,18 +25,34 @@
 		"./lucide/*": {
 			"types": "./dist/lucide/*.svelte.d.ts",
 			"svelte": "./dist/lucide/*.svelte"
+		},
+		"./heroicons": {
+			"types": "./dist/heroicons/outline/index.d.ts",
+			"svelte": "./dist/heroicons/outline/index.js"
+		},
+		"./heroicons/*": {
+			"types": "./dist/heroicons/outline/*.svelte.d.ts",
+			"svelte": "./dist/heroicons/outline/*.svelte"
+		},
+		"./heroicons/solid": {
+			"types": "./dist/heroicons/solid/index.d.ts",
+			"svelte": "./dist/heroicons/solid/index.js"
+		},
+		"./heroicons/solid/*": {
+			"types": "./dist/heroicons/solid/*.svelte.d.ts",
+			"svelte": "./dist/heroicons/solid/*.svelte"
 		}
 	},
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*",
-		"!dist/**/_generate.js",
-		"!dist/**/_generate.d.ts"
+		"!dist/generate",
+		"!dist/**/meta.json"
 	],
 	"peerDependencies": {
-		"svelte": "^5.0.0-next.1",
-		"@sveltejs/kit": "^2.0.0"
+		"@sveltejs/kit": "^2.0.0",
+		"svelte": "^5.0.0-next.1"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
@@ -45,6 +61,7 @@
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/bun": "^1.1.6",
 		"@types/eslint": "^8.56.7",
+		"base-x": "^5.0.0",
 		"eslint": "^9.0.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",

@@ -1,12 +1,22 @@
 .🟃r {
 	display: none;
 }
-.🟃g {
+/* Lucide */
+.🟃l {
 	fill: none;
 	stroke: currentColor;
 	stroke-width: 2;
 	stroke-linecap: round;
 	stroke-linejoin: round;
+}
+/* Heroicons */
+.🟃hs {
+	fill: currentColor;
+}
+.🟃ho {
+	fill: none;
+	stroke-width: 1.5;
+	stroke: currentColor;
 }
 
 .🟃i {

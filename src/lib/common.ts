@@ -1,6 +1,7 @@
 import type { SVGAttributes } from 'svelte/elements';
 
-export function get_style(size: number | undefined, style_: string | null | undefined) {
+/** get_style - Abbreviated to `s` because it's copied over thousands of components */
+export function s(size: number | undefined, style_: string | null | undefined) {
 	if (size === undefined && !style_) return undefined;
 	const styles = [];
 	if (size !== undefined) styles.push(`--🟃s:${size}px`);

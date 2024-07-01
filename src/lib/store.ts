@@ -22,7 +22,8 @@ export function get_included_icons() {
 	return context[ICON_SET];
 }
 
-export function include_icon(icon: number) {
+/** include_icon - Abbreviated to `i` because it's copied over thousands of components */
+export function i(icon: number) {
 	const included_icons = get_included_icons();
 
 	if (included_icons.has(icon)) return false;
