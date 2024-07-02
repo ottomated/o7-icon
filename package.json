@@ -52,6 +52,22 @@
 		"./heroicons/solid/*": {
 			"types": "./dist/heroicons/solid/*.svelte.d.ts",
 			"svelte": "./dist/heroicons/solid/*.svelte"
+		},
+		"./material": {
+			"types": "./dist/material/outline/index.d.ts",
+			"svelte": "./dist/material/outline/index.js"
+		},
+		"./material/*": {
+			"types": "./dist/material/outline/*.svelte.d.ts",
+			"svelte": "./dist/material/outline/*.svelte"
+		},
+		"./material/solid": {
+			"types": "./dist/material/solid/index.d.ts",
+			"svelte": "./dist/material/solid/index.js"
+		},
+		"./material/solid/*": {
+			"types": "./dist/material/solid/*.svelte.d.ts",
+			"svelte": "./dist/material/solid/*.svelte"
 		}
 	},
 	"files": [

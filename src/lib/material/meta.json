@@ -1,0 +1,14 @@
+{
+	"git": "https://github.com/marella/material-design-icons",
+	"sources": {
+		"./solid": [
+			"svg/filled",
+			"🟃m"
+		],
+		"./outline": [
+			"svg/outlined",
+			"🟃m"
+		]
+	},
+	"version": "0"
+}

@@ -41,7 +41,8 @@ for await (const { name, meta, sourceRoot, destRoot } of getIconPacks()) {
 			} else {
 				attributes.set(currentAttributes, attributes.get(currentAttributes)! + 1);
 			}
-			const name = toPascalCase(icon.replace('.svg', ''));
+			let name = toPascalCase(icon.replace('.svg', ''));
+			if (/^\d/.test(name)) name = `_${name}`;
 			names.push(name);
 			const id = getId();
 			const js = generateComponent(id, source[1], relativePath, svg);
