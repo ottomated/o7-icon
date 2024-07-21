@@ -1,5 +1,5 @@
 import { getIconPacks, toPascalCase } from './common.js';
-import { join, relative } from 'node:path';
+import { join, relative, basename } from 'node:path';
 import { parse as parseSvg, stringify, type INode } from 'svgson';
 import basex from 'base-x';
 import { Glob } from 'bun';
@@ -21,31 +21,37 @@ function getId() {
 	return [oldId, intToBase62(id)] as const;
 }
 
-const svgs = new Glob('*.svg');
-
 for await (const { name, meta, sourceRoot, destRoot } of getIconPacks()) {
-	console.log(name);
+	console.log(name, sourceRoot);
 	const attributes = new Map<string, number>();
 	for (const [dest, source] of Object.entries(meta.sources)) {
-		const sourcePath = join(sourceRoot, source[0]);
 		const destPath = join(destRoot, dest);
 		const relativePath = join(relative(destPath, destRoot), '..');
 
 		const names: string[] = [];
 
-		for await (const icon of svgs.scan(sourcePath)) {
-			const svg = await Bun.file(join(sourcePath, icon)).text().then(parseSvg);
+		const glob = new Glob(source.glob);
+
+		function getName(icon: string) {
+			const name = basename(icon, '.svg');
+			if (source.stripSuffix && name.endsWith(source.stripSuffix))
+				return name.substring(0, name.length - source.stripSuffix.length);
+			return name;
+		}
+
+		for await (const icon of glob.scan(sourceRoot)) {
+			const svg = await Bun.file(join(sourceRoot, icon)).text().then(parseSvg);
 			const currentAttributes = JSON.stringify(svg.attributes);
 			if (!attributes.has(currentAttributes)) {
 				attributes.set(currentAttributes, 1);
 			} else {
 				attributes.set(currentAttributes, attributes.get(currentAttributes)! + 1);
 			}
-			let name = toPascalCase(icon.replace('.svg', ''));
+			let name = toPascalCase(getName(icon));
 			if (/^\d/.test(name)) name = `_${name}`;
 			names.push(name);
 			const id = getId();
-			const js = generateComponent(id, source[1], relativePath, svg);
+			const js = generateComponent(id, source.class, relativePath, svg);
 			const dts = generateIconTypes(name, svg);
 			await Bun.write(join(destPath, name + '.svelte'), js);
 			await Bun.write(join(destPath, name + '.svelte.d.ts'), dts);

@@ -1,0 +1,16 @@
+{
+	"git": "https://github.com/Remix-Design/RemixIcon",
+	"sources": {
+		"./solid": {
+			"glob": "icons/*/*-fill.svg",
+			"class": "🟃c",
+			"stripSuffix": "-fill"
+		},
+		"./outline": {
+			"glob": "icons/*/*-line.svg",
+			"class": "🟃c",
+			"stripSuffix": "-line"
+		}
+	},
+	"version": "v4.3.0"
+}

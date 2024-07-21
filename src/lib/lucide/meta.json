@@ -1,10 +1,10 @@
 {
 	"git": "https://github.com/lucide-icons/lucide",
 	"sources": {
-		".": [
-			"icons",
-			"🟃l"
-		]
+		".": {
+			"glob": "icons/*.svg",
+			"class": "🟃l"
+		}
 	},
-	"version": "0.411.0"
+	"version": "0.412.0"
 }

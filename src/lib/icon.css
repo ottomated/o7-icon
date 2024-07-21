@@ -10,17 +10,14 @@
 	stroke-linejoin: round;
 }
 /* Heroicons */
-.🟃hs {
-	fill: currentColor;
-}
 .🟃ho {
 	fill: none;
 	stroke-width: 1.5;
 	stroke: currentColor;
 }
 
-/* Material */
-.🟃m {
+/* Common */
+.🟃c {
 	fill: currentColor;
 }
 

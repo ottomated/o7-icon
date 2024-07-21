@@ -11,7 +11,13 @@ export function toPascalCase(string: string) {
 
 type Meta = {
 	git: string;
-	sources: { [key: string]: [source: string, class_: string] };
+	sources: {
+		[key: string]: {
+			glob: string;
+			class: string;
+			stripSuffix?: string;
+		};
+	};
 	version: string;
 };
 

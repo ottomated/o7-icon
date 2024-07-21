@@ -1,14 +1,14 @@
 {
 	"git": "https://github.com/tailwindlabs/heroicons",
 	"sources": {
-		"./solid": [
-			"optimized/24/solid",
-			"🟃hs"
-		],
-		"./outline": [
-			"optimized/24/outline",
-			"🟃ho"
-		]
+		"./solid": {
+			"glob": "optimized/24/solid/*.svg",
+			"class": "🟃c"
+		},
+		"./outline": {
+			"glob": "optimized/24/outline/*.svg",
+			"class": "🟃c"
+		}
 	},
 	"version": "v2.1.5"
 }

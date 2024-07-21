@@ -43,5 +43,5 @@ for (const { name, latest, meta, meta_file } of toDownload) {
 		await $`git clone --depth=1 --branch=${latest.version} ${meta.git} ./icons/${name}`;
 	}
 	meta.version = latest.version;
-	await Bun.write(meta_file, JSON.stringify(meta, null, '\t'));
+	await Bun.write(meta_file, JSON.stringify(meta, null, '\t') + '\n');
 }
