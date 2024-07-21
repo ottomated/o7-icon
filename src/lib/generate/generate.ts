@@ -22,7 +22,7 @@ function getId() {
 }
 
 for await (const { name, meta, sourceRoot, destRoot } of getIconPacks()) {
-	console.log(name, sourceRoot);
+	console.log(name);
 	const attributes = new Map<string, number>();
 	for (const [dest, source] of Object.entries(meta.sources)) {
 		const destPath = join(destRoot, dest);
