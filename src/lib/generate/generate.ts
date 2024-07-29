@@ -71,14 +71,13 @@ function generateComponent(
 	const src = svg.children.map((child) => stringify(child));
 	return [
 		`<script>`,
-		`import {s} from '${relativePath}/common.js';`,
+		`import {s,i,n} from '${relativePath}/icon.js';`,
 		`import '${relativePath}/icon.css';`,
-		`import {i} from '${relativePath}/store.js';`,
 		`const {size,style:st,class:c,...props}=$props();`,
 		`const style=$derived(s(size,st));`,
 		`</script>`,
 		`{#if i(${id[0]})}`,
-		`<svg class="🟃r"><g id="🟃${id[1]}" class="${class_}">`,
+		`<svg class="🟃r" use:n><g id="🟃${id[1]}" class="${class_}">`,
 		...src,
 		`</g></svg>`,
 		`{/if}`,
@@ -111,7 +110,7 @@ function generateIconTypes(name: string, old: INode) {
 	svg.attributes.height = '48';
 	const base64 = Buffer.from(stringify(svg)).toString('base64');
 	const docs = `/** ![img](data:image/svg+xml;base64,${base64}) */`;
-	return `import {IIC} from '../common.js';declare const ${name}:IIC;\n${docs}\ntype ${name}=InstanceType<typeof ${name}>;export default ${name};`;
+	return `import {IIC} from '../icon.js';declare const ${name}:IIC;\n${docs}\ntype ${name}=InstanceType<typeof ${name}>;export default ${name};`;
 }
 
 async function writeIndex(names: string[], dest: string) {
