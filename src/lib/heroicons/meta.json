@@ -3,11 +3,11 @@
 	"sources": {
 		"./solid": {
 			"glob": "optimized/24/solid/*.svg",
-			"class": "🟃c"
+			"class": "🟃hs"
 		},
 		"./outline": {
 			"glob": "optimized/24/outline/*.svg",
-			"class": "🟃c"
+			"class": "🟃ho"
 		}
 	},
 	"version": "v2.1.5"
