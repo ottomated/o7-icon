@@ -78,7 +78,3 @@ import UserPlus from '@o7/icon/lucide/UserPlus';
 ### 0.0.6
 
 - Add material icons
-
-```
-
-```
