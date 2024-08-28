@@ -3,6 +3,8 @@ import { join, relative, basename } from 'node:path';
 import { parse as parseSvg, stringify, type INode } from 'svgson';
 import basex from 'base-x';
 import { Glob } from 'bun';
+import chalk from 'chalk';
+
 const base62 = basex('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
 function intToBase62(int: number) {
@@ -22,9 +24,9 @@ function getId() {
 }
 
 for await (const { name, meta, sourceRoot, destRoot } of getIconPacks()) {
-	console.log(name);
-	const attributes = new Map<string, number>();
 	for (const [dest, source] of Object.entries(meta.sources)) {
+		console.log(`Generating ${chalk.blue.bold(join(name, dest))}`);
+		const attributes = new Map<string, number>();
 		const destPath = join(destRoot, dest);
 		const relativePath = join(relative(destPath, destRoot), '..');
 
@@ -41,6 +43,7 @@ for await (const { name, meta, sourceRoot, destRoot } of getIconPacks()) {
 
 		for await (const icon of glob.scan(sourceRoot)) {
 			const svg = await Bun.file(join(sourceRoot, icon)).text().then(parseSvg);
+			delete svg.attributes.xmlns;
 			const currentAttributes = JSON.stringify(svg.attributes);
 			if (!attributes.has(currentAttributes)) {
 				attributes.set(currentAttributes, 1);
@@ -57,8 +60,17 @@ for await (const { name, meta, sourceRoot, destRoot } of getIconPacks()) {
 			await Bun.write(join(destPath, name + '.svelte.d.ts'), dts);
 		}
 		await writeIndex(names, destPath);
-		console.log(`${dest} Generated ${names.length} icons`);
-		console.log(attributes);
+		console.log(`  ${chalk.yellow(names.length)} icons`);
+		if (attributes.size === 1) {
+			console.log(`  ${chalk.green('All attributes match!')}`);
+			console.log(`    ${chalk.red(attributes.keys().next().value)}`);
+		} else {
+			console.log('  Attributes:');
+			for (const [attr, count] of attributes.entries()) {
+				console.log(`    ${count.toString().padStart(4, ' ')}× ${chalk.red(attr)}`);
+			}
+		}
+		console.log();
 	}
 }
 

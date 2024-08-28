@@ -7,7 +7,7 @@
 		},
 		"./outline": {
 			"glob": "optimized/24/outline/*.svg",
-			"class": "🟃c"
+			"class": "🟃h"
 		}
 	},
 	"version": "v2.1.5"

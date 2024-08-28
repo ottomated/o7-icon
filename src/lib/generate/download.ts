@@ -4,7 +4,7 @@ import { getIconPacks } from './common.js';
 
 await $`mkdir -p ./icons`;
 
-let changes = false;
+let changes = process.argv.includes('--force');
 const toDownload = [];
 for await (const { name, meta, meta_file } of getIconPacks()) {
 	console.log(name);
