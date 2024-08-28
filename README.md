@@ -10,9 +10,10 @@
 
 ## Basic Usage
 
+<!-- prettier-ignore -->
 ```svelte
 <script>
-	import { UserPlus } from '@o7/icon/lucide';
+  import { UserPlus } from '@o7/icon/lucide';
 </script>
 
 <UserPlus />
@@ -22,6 +23,31 @@ When you first use an icon, it includes the full svg. Any subsequent uses only n
 
 ```html
 <svg class="🟃i" viewBox="0 0 24 24"><use href="#🟃5"></use></svg>
+```
+
+## Recommended: Vite Plugin
+
+If you don't use the Vite plugin, dev mode will be MUCH slower because Vite has to parse every icon when you import one.
+
+Usage:
+
+Add the plugin to your `vite.config.ts`:
+
+<!-- prettier-ignore -->
+```ts
+import { o7Icon } from '@o7/icon/vite';
+
+export default defineConfig({
+  plugins: [o7Icon()]
+});
+```
+
+This automatically rewrites imports behind the scenes:
+
+```ts
+import { UserPlus } from '@o7/icon/lucide';
+// ↓
+import UserPlus from '@o7/icon/lucide/UserPlus';
 ```
 
 ## Included Icon Packs:
@@ -35,6 +61,11 @@ When you first use an icon, it includes the full svg. Any subsequent uses only n
 
 (icons are automatically updated daily as the source repos are updated)
 
+### 0.3.0
+
+- Fix heroicons/outline
+- Add Vite plugin
+
 ### 0.2.0
 
 - Slightly shrink install size
@@ -47,3 +78,7 @@ When you first use an icon, it includes the full svg. Any subsequent uses only n
 ### 0.0.6
 
 - Add material icons
+
+```
+
+```
