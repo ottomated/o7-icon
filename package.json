@@ -87,7 +87,7 @@
 		},
 		"./vite": {
 			"types": "./dist/vite/index.d.ts",
-			"svelte": "./dist/vite/index.js"
+			"import": "./dist/vite/index.js"
 		}
 	},
 	"files": [
