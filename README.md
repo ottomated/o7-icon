@@ -61,6 +61,10 @@ import UserPlus from '@o7/icon/lucide/UserPlus';
 
 (icons are automatically updated daily as the source repos are updated)
 
+### 0.3.5
+
+- Fix regression that broke previews on hover
+
 ### 0.3.0
 
 - Fix heroicons/outline
