@@ -120,9 +120,10 @@ function generateIconTypes(name: string, old: INode) {
 	svg.attributes.viewBox = `-${margin} -${margin} ${size + margin * 2} ${size + margin * 2}`;
 	svg.attributes.width = '48';
 	svg.attributes.height = '48';
+	svg.attributes.xmlns = 'http://www.w3.org/2000/svg';
 	const base64 = Buffer.from(stringify(svg)).toString('base64');
 	const docs = `/** ![img](data:image/svg+xml;base64,${base64}) */`;
-	return `import {IIC} from '../icon.js';declare const ${name}:IIC;\n${docs}\ntype ${name}=InstanceType<typeof ${name}>;export default ${name};`;
+	return `import {Icon} from '../icon.js';declare const ${name}:Icon;\n${docs}\ntype ${name}=InstanceType<typeof ${name}>;export default ${name};`;
 }
 
 async function writeIndex(names: string[], dest: string) {

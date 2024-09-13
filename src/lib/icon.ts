@@ -60,7 +60,7 @@ export type IconProps = { size?: number } & Omit<
 >;
 
 type Empty = Record<string, never>;
-export interface IIC {
+export interface Icon {
 	new (
 		options: import('svelte').ComponentConstructorOptions<IconProps>
 	): import('svelte').SvelteComponent<IconProps, Empty, Empty> & {
