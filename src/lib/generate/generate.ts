@@ -83,18 +83,17 @@ function generateComponent(
 	const src = svg.children.map((child) => stringify(child));
 	return [
 		`<script>`,
-		`import {s,i,n} from '${relativePath}/icon.js';`,
-		`import '${relativePath}/icon.css';`,
-		`const {size,style:st,class:c,...props}=$props();`,
-		`const style=$derived(s(size,st));`,
+		`import {s,i,n} from '${relativePath}/i.js';`,
+		`import '${relativePath}/i.css';`,
+		`const {size:a,style:b,class:c,...p}=$props();`,
 		`</script>`,
 		`{#if i(${id[0]})}`,
 		`<svg class="🟃r" use:n><g id="🟃${id[1]}" class="${class_}">`,
 		...src,
 		`</g></svg>`,
 		`{/if}`,
-		`<svg class="🟃i{c?' '+c:''}" viewBox="0 0 24 24" {style} {...props}>`,
-		`<use href="#🟃${id[1]}" />`,
+		`<svg class="🟃i{c?' '+c:''}" viewBox="0 0 24 24" style={s(a,b)} {...p}>`,
+		`<use href="#🟃${id[1]}"/>`,
 		`</svg>`
 	].join('');
 }
