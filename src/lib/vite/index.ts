@@ -7,7 +7,7 @@ import type { AstNode, RollupAstNode } from 'rollup';
 export function o7Icon(): Plugin {
 	return {
 		name: 'o7-icon',
-		enforce: 'pre',
+		enforce: 'post',
 		async transform(input, id) {
 			if (id.includes('o7-icon/dist') || id.includes('node_modules')) return;
 
@@ -36,6 +36,7 @@ export function o7Icon(): Plugin {
 				const newImports = [];
 				for (const spec of node.specifiers) {
 					if (spec.type !== 'ImportSpecifier') continue;
+					if (spec.imported.type !== 'Identifier') continue;
 					const source =
 						node.source.value === '@o7/icon'
 							? `@o7/icon/lucide/${spec.imported.name}`
