@@ -134,5 +134,6 @@
 	"dependencies": {
 		"magic-string": "^0.30.19",
 		"vite-plugin-inspect": "^11.3.3"
-	}
+	},
+	"packageManager": "pnpm@10.25.0"
 }

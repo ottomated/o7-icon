@@ -4,29 +4,30 @@ on:
     - cron: '0 7 * * *'
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - id: create_token
-        uses: tibdex/github-app-token@v2
+        uses: actions/create-github-app-token@v2
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ steps.create_token.outputs.token }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v3
-        with:
-          version: 9
-          run_install: false
 
       - name: Install Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           cache: pnpm
 
