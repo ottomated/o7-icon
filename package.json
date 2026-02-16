@@ -135,5 +135,5 @@
 	"dependencies": {
 		"magic-string": "^0.30.19"
 	},
-	"packageManager": "pnpm@10.25.0"
+	"packageManager": "pnpm@10.29.3"
 }
