@@ -24,6 +24,9 @@
 		"format": "prettier --write .",
 		"download": "bun ./src/lib/generate/download.ts"
 	},
+	"repository": {
+		"url": "https://github.com/ottomated/o7-icon"
+	},
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
