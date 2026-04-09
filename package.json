@@ -1,6 +1,6 @@
 {
 	"name": "@o7/icon",
-	"version": "0.3.81",
+	"version": "0.3.82",
 	"description": "The most efficient Svelte icon library",
 	"keywords": [
 		"svelte",
