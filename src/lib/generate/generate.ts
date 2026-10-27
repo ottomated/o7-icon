@@ -100,7 +100,7 @@ function generateComponent(
 
 function generateIconTypes(name: string, old: INode) {
 	const svg = structuredClone(old);
-	const size = Number(svg.attributes.viewBox.split(' ')[2]);
+	const size = Number(svg.attributes.viewBox!.split(' ')[2]);
 	const margin = 2;
 	svg.children.unshift({
 		name: 'rect',

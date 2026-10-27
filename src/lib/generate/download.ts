@@ -17,12 +17,20 @@ for await (const { name, meta, meta_file } of getIconPacks()) {
 			const [hash, tag] = t.split('\t');
 			return {
 				hash,
-				version: tag.substring(tag.lastIndexOf('/') + 1),
+				version: tag!.substring(tag!.lastIndexOf('/') + 1),
 			};
+		})
+		.filter((t) => {
+			try {
+				semver.order(t.version, t.version);
+				return true;
+			} catch {
+				return false;
+			}
 		})
 		.sort((a, b) => -semver.order(a.version, b.version));
 
-	const latest = tags[0];
+	const latest = tags[0]!;
 	console.log(`- Latest version: ${latest.version}`);
 	if (meta.version !== latest.version) {
 		changes = true;
