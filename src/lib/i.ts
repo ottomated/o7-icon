@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { getContext } from 'svelte';
 import type { Action } from 'svelte/action';
 import type { SVGAttributes } from 'svelte/elements';

@@ -12,7 +12,7 @@
 	],
 	"license": "MIT",
 	"repository": {
-		"url": "https://github.com/ottomated/o7-icon"
+		"url": "git+https://github.com/ottomated/o7-icon.git"
 	},
 	"files": [
 		"dist",
@@ -24,6 +24,10 @@
 	"type": "module",
 	"types": "./dist/index.d.ts",
 	"svelte": "./dist/index.js",
+	"imports": {
+		"#lib": "./src/lib/index.js",
+		"#lib/*": "./src/lib/*"
+	},
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
@@ -99,8 +103,8 @@
 		"prepublishOnly": "bun run package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write .",
+		"lint": "eslint .",
+		"fmt": "oxfmt .",
 		"download": "bun ./src/lib/generate/download.ts"
 	},
 	"dependencies": {
@@ -109,8 +113,8 @@
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
 		"@oxc-project/types": "^0.155.0",
-		"@sveltejs/adapter-auto": "^7.0.1",
-		"@sveltejs/kit": "^2.60.1",
+		"@sveltejs/adapter-auto": "^8.0.0",
+		"@sveltejs/kit": "^3.0.0",
 		"@sveltejs/package": "^3.0.1",
 		"@sveltejs/vite-plugin-svelte": "^7.3.1",
 		"@types/bun": "^1.4.4",
@@ -123,14 +127,14 @@
 		"svelte": "^5.57.2",
 		"svelte-check": "^4.7.7",
 		"svgson": "^5.3.1",
-		"typescript": "^7.0.2",
+		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.72.0",
 		"vite": "^8.3.5",
 		"vite-plugin-inspect": "12.1.0",
 		"zimmerframe": "^1.1.5"
 	},
 	"peerDependencies": {
-		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/kit": "^3.0.0",
 		"svelte": "^5.0.0",
 		"vite": "^8.0.0"
 	},

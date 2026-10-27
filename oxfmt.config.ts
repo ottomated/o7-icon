@@ -5,4 +5,5 @@ export default defineConfig({
 	tabWidth: 2,
 	useTabs: true,
 	svelte: true,
+	ignorePatterns: ['dist/**', 'icons/**'],
 });
