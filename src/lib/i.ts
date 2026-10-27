@@ -18,8 +18,9 @@ const ICON_SET = Symbol();
 export function get_included_icons() {
 	if (browser) return included_icons;
 
-	const context = getContext<{ [ICON_SET]?: Set<number> }>('__svelte__');
-	if (!context) throw new Error('SvelteKit global context not found');
+	const context = getContext<{ [ICON_SET]?: Set<number> }>('__request__');
+	if (!context)
+		throw new Error("@o7/icon: SvelteKit version mismatch - ensure you're using SvelteKit 3");
 	if (!context[ICON_SET]) context[ICON_SET] = new Set();
 	return context[ICON_SET];
 }
@@ -40,7 +41,7 @@ export const n: Action<HTMLElement> = function (node) {
 	return {
 		destroy() {
 			document.body.appendChild(node);
-		}
+		},
 	};
 };
 
@@ -62,7 +63,7 @@ export type IconProps = { size?: number } & Omit<
 type Empty = Record<string, never>;
 export interface Icon {
 	new (
-		options: import('svelte').ComponentConstructorOptions<IconProps>
+		options: import('svelte').ComponentConstructorOptions<IconProps>,
 	): import('svelte').SvelteComponent<IconProps, Empty, Empty> & {
 		$$bindings?: '';
 	};
@@ -71,7 +72,7 @@ export interface Icon {
 		props: IconProps & {
 			$$events?: Empty;
 			$$slots?: Empty;
-		}
+		},
 	): Empty;
 	z_$$bindings?: '';
 }

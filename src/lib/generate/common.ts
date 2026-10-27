@@ -3,7 +3,7 @@ import { Glob } from 'bun';
 
 export function toPascalCase(string: string) {
 	const camelCase = string.replace(/^([A-Z])|[\s-_]+(\w)/g, (match, p1, p2) =>
-		p2 ? p2.toUpperCase() : p1.toLowerCase()
+		p2 ? p2.toUpperCase() : p1.toLowerCase(),
 	);
 
 	return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);

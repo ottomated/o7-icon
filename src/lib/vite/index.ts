@@ -10,8 +10,8 @@ export function o7Icon(): Plugin {
 		transform: {
 			filter: {
 				id: {
-					exclude: [/node_modules/, /o7-icon\/dist/, /\.svelte-kit\/generated/]
-				}
+					exclude: [/node_modules/, /o7-icon\/dist/, /\.svelte-kit\/generated/],
+				},
 			},
 			async handler(code, id) {
 				let ast: Program;
@@ -28,7 +28,7 @@ export function o7Icon(): Plugin {
 						if (!node.source.value.startsWith('@o7/icon')) return;
 						if (node.specifiers.some((s) => s.type !== 'ImportSpecifier')) return;
 						imports.push(node);
-					}
+					},
 				});
 				if (imports.length === 0) return { code, ast };
 
@@ -50,13 +50,13 @@ export function o7Icon(): Plugin {
 
 				const map = s.generateMap({
 					source: id,
-					file: id + '.map'
+					file: id + '.map',
 				});
 				return {
 					code: s.toString(),
-					map
+					map,
 				};
-			}
-		}
+			},
+		},
 	};
 }

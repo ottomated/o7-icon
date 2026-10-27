@@ -3,7 +3,7 @@ import { join, relative, basename } from 'node:path';
 import { parse as parseSvg, stringify, type INode } from 'svgson';
 import basex from 'base-x';
 import { Glob } from 'bun';
-import chalk from 'chalk';
+import { styleText } from 'node:util';
 
 const base62 = basex('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
@@ -25,7 +25,7 @@ function getId() {
 
 for await (const { name, meta, sourceRoot, destRoot } of getIconPacks()) {
 	for (const [dest, source] of Object.entries(meta.sources)) {
-		console.log(`Generating ${chalk.blue.bold(join(name, dest))}`);
+		console.log(`Generating ${styleText(['blue', 'bold'], join(name, dest))}`);
 		const attributes = new Map<string, number>();
 		const destPath = join(destRoot, dest);
 		const relativePath = join(relative(destPath, destRoot), '..');
@@ -60,14 +60,14 @@ for await (const { name, meta, sourceRoot, destRoot } of getIconPacks()) {
 			await Bun.write(join(destPath, name + '.svelte.d.ts'), dts);
 		}
 		await writeIndex(names, destPath);
-		console.log(`  ${chalk.yellow(names.length)} icons`);
+		console.log(`  ${styleText('yellow', names.length.toString())} icons`);
 		if (attributes.size === 1) {
-			console.log(`  ${chalk.green('All attributes match!')}`);
-			console.log(`    ${chalk.red(attributes.keys().next().value)}`);
+			console.log(`  ${styleText('green', 'All attributes match!')}`);
+			console.log(`    ${styleText('red', attributes.keys().next().value ?? '')}`);
 		} else {
 			console.log('  Attributes:');
 			for (const [attr, count] of attributes.entries()) {
-				console.log(`    ${count.toString().padStart(4, ' ')}× ${chalk.red(attr)}`);
+				console.log(`    ${count.toString().padStart(4, ' ')}× ${styleText('red', attr)}`);
 			}
 		}
 		console.log();
@@ -78,7 +78,7 @@ function generateComponent(
 	id: readonly [number, string],
 	class_: string,
 	relativePath: string,
-	svg: INode
+	svg: INode,
 ) {
 	const src = svg.children.map((child) => stringify(child));
 	return [
@@ -94,7 +94,7 @@ function generateComponent(
 		`{/if}`,
 		`<svg class="🟃i{c?' '+c:''}" viewBox="0 0 24 24" style={s(a,b)} {...p}>`,
 		`<use href="#🟃${id[1]}"/>`,
-		`</svg>`
+		`</svg>`,
 	].join('');
 }
 
@@ -112,9 +112,9 @@ function generateIconTypes(name: string, old: INode) {
 			width: `${size + margin * 2}`,
 			height: `${size + margin * 2}`,
 			fill: 'white',
-			rx: margin.toString()
+			rx: margin.toString(),
 		},
-		children: []
+		children: [],
 	});
 	svg.attributes.viewBox = `-${margin} -${margin} ${size + margin * 2} ${size + margin * 2}`;
 	svg.attributes.width = '48';

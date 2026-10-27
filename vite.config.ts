@@ -7,7 +7,7 @@ export default defineConfig({
 	plugins: [o7Icon(), sveltekit(), inspector()],
 	server: {
 		fs: {
-			allow: ['dist']
-		}
-	}
+			allow: ['dist'],
+		},
+	},
 });
