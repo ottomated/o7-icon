@@ -61,6 +61,10 @@ import UserPlus from '@o7/icon/lucide/UserPlus';
 
 (icons are automatically updated daily as the source repos are updated)
 
+### 0.5.0
+
+- Update to SvelteKit 3
+
 ### 0.4.0
 
 - Update to Vite 8
