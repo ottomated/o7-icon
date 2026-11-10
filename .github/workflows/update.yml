@@ -40,12 +40,18 @@ jobs:
         run: pnpm install
 
       - name: Download icons
-        run: pnpm download
+        id: download
+        run: |
+          exit_code=0
+          pnpm download || rc=$?
+          echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
 
       - name: Build
+        if: steps.download.outputs.exit_code = 0
         run: pnpm package
 
       - name: Commit
+        if: steps.download.outputs.exit_code = 0
         run: |
           git add .
 
@@ -55,6 +61,7 @@ jobs:
           pnpm version patch
 
       - name: Publish
+        if: steps.download.outputs.exit_code = 0
         run: |
           pnpm publish
           git push
