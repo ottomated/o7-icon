@@ -37,7 +37,7 @@ jobs:
         id: download
         run: |
           exit_code=0
-          pnpm download || rc=$?
+          pnpm download || exit_code=$?
           echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
 
       - name: Build
