@@ -47,11 +47,11 @@ jobs:
           echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
 
       - name: Build
-        if: steps.download.outputs.exit_code = 0
+        if: steps.download.outputs.exit_code == 0
         run: pnpm package
 
       - name: Commit
-        if: steps.download.outputs.exit_code = 0
+        if: steps.download.outputs.exit_code == 0
         run: |
           git add .
 
@@ -61,7 +61,7 @@ jobs:
           pnpm version patch
 
       - name: Publish
-        if: steps.download.outputs.exit_code = 0
+        if: steps.download.outputs.exit_code == 0
         run: |
           pnpm publish
           git push
