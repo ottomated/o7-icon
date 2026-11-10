@@ -1,0 +1,10 @@
+{
+	"git": "https://github.com/simple-icons/simple-icons",
+	"sources": {
+		".": {
+			"glob": "icons/*.svg",
+			"class": "🟃c"
+		}
+	},
+	"version": "16.37.0"
+}

@@ -56,10 +56,15 @@ import UserPlus from '@o7/icon/lucide/UserPlus';
 - [Heroicons](https://heroicons.com) (`@o7/icon/heroicons`, `@o7/icon/heroicons/solid`)
 - [Material Design](https://fonts.google.com/icons) (`@o7/icon/material`, `@o7/icon/material/solid`)
 - [Remix Icon](https://remixicon.com) (`@o7/icon/remix`, `@o7/icon/remix/solid`)
+- [Simple Icons](https://simpleicons.org) (`@o7/icon/brands`)
 
 ## Changelog
 
 (icons are automatically updated daily as the source repos are updated)
+
+### 0.6.0
+
+- Add brand icons
 
 ### 0.5.0
 

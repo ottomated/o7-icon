@@ -1,6 +1,7 @@
 import { getIconPacks, toPascalCase } from './common.js';
 import { join, relative, basename } from 'node:path';
 import { parse as parseSvg, stringify, type INode } from 'svgson';
+import { optimize } from 'svgo';
 import basex from 'base-x';
 import { Glob } from 'bun';
 import { styleText } from 'node:util';
@@ -42,7 +43,11 @@ for await (const { name, meta, sourceRoot, destRoot } of getIconPacks()) {
 		}
 
 		for await (const icon of glob.scan(sourceRoot)) {
-			const svg = await Bun.file(join(sourceRoot, icon)).text().then(parseSvg);
+			const svgSource = await Bun.file(join(sourceRoot, icon)).text();
+
+			const optimized = optimize(svgSource, { multipass: true });
+
+			const svg = await parseSvg(optimized.data);
 			delete svg.attributes.xmlns;
 			const currentAttributes = JSON.stringify(svg.attributes);
 			if (!attributes.has(currentAttributes)) {
@@ -80,7 +85,15 @@ function generateComponent(
 	relativePath: string,
 	svg: INode,
 ) {
-	const src = svg.children.map((child) => stringify(child));
+	const src = svg.children.map((child) => {
+		if (child.type === 'title') {
+			// svgson stringifies &amp; as weird CDATA
+			const text = child.children.find((c) => c.type === 'text')?.value;
+			if (!text) return '';
+			return `<title>${text}</title>`;
+		}
+		return stringify(child);
+	});
 	return [
 		`<script>`,
 		`import {s,i,n} from '${relativePath}/i.js';`,
