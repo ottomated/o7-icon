@@ -86,7 +86,7 @@ function generateComponent(
 	svg: INode,
 ) {
 	const src = svg.children.map((child) => {
-		if (child.type === 'title') {
+		if (child.name === 'title') {
 			// svgson stringifies &amp; as weird CDATA
 			const text = child.children.find((c) => c.type === 'text')?.value;
 			if (!text) return '';
